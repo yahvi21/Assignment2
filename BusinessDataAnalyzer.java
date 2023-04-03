@@ -218,7 +218,7 @@ public class BusinessDataAnalyzer {
                 List<Business> business_list = list.get(i);
                 for (int j = 0; j < business_list.size(); ++j) {
                     Business business = business_list.get(j);
-					// Get the NAICS code of this business and split it into start and end numbers
+		    // Get the NAICS code of this business and split it into start and end numbers
                     String naics = business.getNaicsCode();
                     String[] arr = naics.split("-");
                     int start = Integer.parseInt(arr[0]);
@@ -227,7 +227,7 @@ public class BusinessDataAnalyzer {
                     if (code >= start && code <= end) {
                         ++total;
                         boolean found = false;
-						// Check if this zip code has already been added
+			// Check if this zip code has already been added
                         for (int k = 0; k < codes.size(); ++k) {
                             if (business.getZipCode().equals(codes.get(k))) {
                                 found = true;
@@ -237,7 +237,7 @@ public class BusinessDataAnalyzer {
                         if (!found) {
                             codes.add(business.getZipCode());
                         }
-						// Check if this neighborhood has already been added
+			// Check if this neighborhood has already been added
                         found = false;
                         for (int k = 0; k < neighborhoods.size(); ++k) {
                             if (!business.getNeighborhoods().equals("")) {
