@@ -25,11 +25,11 @@ public class BusinessDataAnalyzer {
     private static final int END = 9;
     private static final int NBR = 31;
 
-	/** Check for valid command line arguments.
-	 * @param String[]args to read comand line arguement
-	 * @return void
-	 */
-    public static void main(String[] args) {
+     /** Check for valid command line arguments.
+      * @param String[]args to read comand line arguement
+      * @return void
+      */
+     public static void main(String[] args) {
         if (args.length != 2) {
             System.out.println("Invalid arguments");
             System.exit(0);
@@ -47,11 +47,11 @@ public class BusinessDataAnalyzer {
 
         loadData();
 		
-		// Set up command queue and input scanner for user interaction.
+	// Set up command queue and input scanner for user interaction.
         commands = new ArrayDeque<>();
         Scanner scanner = new Scanner(System.in);
         while (true) {
-			// Execute appropriate action based on user command.
+	    // Execute appropriate action based on user command.
             System.out.print("Command: ");
             String command_input = scanner.nextLine();
             String command = command_input.toLowerCase();
@@ -92,15 +92,15 @@ public class BusinessDataAnalyzer {
     private static void loadData() {
         File file = new File(filePath);
         try {
-			// create a scanner object to read from the file
+	    // create a scanner object to read from the file
             Scanner scanner = new Scanner(file);
             // ignore header line in csv file
             scanner.nextLine();
             while (scanner.hasNextLine()) {
-				// read the next line from the file and remove all quoted substrings that are not at the beginning or end of a field
+		// read the next line from the file and remove all quoted substrings that are not at the beginning or end of a field
                 String line = scanner.nextLine();
                 line = line.replaceAll("\\B\".*\"\\B", "");
-				// split the line into an array of fields
+		// split the line into an array of fields
                 String[] arr = line.split(",");
                 String nbr = "";
                 if (arr.length > NBR) {
@@ -123,13 +123,13 @@ public class BusinessDataAnalyzer {
                     str = arr[STR];
                 }
                 Business new_business = new Business(zip, nai, str, end, nbr);
-				// search through each list of businesses to see if a matching NAICS code is already present
+		// search through each list of businesses to see if a matching NAICS code is already present
                 boolean found = false;
                 for (int i = 0; i < list.size(); ++i) {
                     try {
                         List<Business> business_list = list.get(i);
                         Business business = business_list.get(0);
-						// if a matching NAICS code is found, the business  adds to the existing list
+			// if a matching NAICS code is found, the business  adds to the existing list
                         if (business.getNaicsCode().equals(new_business.getNaicsCode())) {
                             business_list.add(new_business);
                             found = true;
@@ -137,7 +137,7 @@ public class BusinessDataAnalyzer {
                         }
                     } catch (Exception ex) {}
                 }
-				// if no matching NAICS code was found, create a new list of it
+		// if no matching NAICS code was found, create a new list of it
                 if (!found) {
                     List<Business> business_list;
                     if (listType.equals("AL")) {
@@ -155,10 +155,10 @@ public class BusinessDataAnalyzer {
         }
     }
 	
-	/** Print the zip summary
-	 * @param code the zip code to print the summary for
-	 * @return void
-	 */
+    /** Print the zip summary
+     * @param code the zip code to print the summary for
+     * @return void
+     */
     private static void printZipSummary(int code) {
         int total = 0;
         ArrayList<String> types = new ArrayList<>();
@@ -168,7 +168,7 @@ public class BusinessDataAnalyzer {
                 List<Business> business_list = list.get(i);
                 for (int j = 0; j < business_list.size(); ++j) {
                     Business business = business_list.get(j);
-					// If the business is in the specified zip code, increment total count and check if it belongs to a new business type or neighborhood.
+		    // If the business is in the specified zip code, increment total count and check if it belongs to a new business type or neighborhood.
                     if (business.getZipCode().equals(code + "")) {
                         ++total;
                         boolean found = false;
@@ -197,18 +197,18 @@ public class BusinessDataAnalyzer {
                 }
             } catch (Exception ex) {}
         }
-		// Print the summary of businesses for the given zip code
+	// Print the summary of businesses for the given zip code
         System.out.println("Total Businesses: " + total);
         System.out.println("Business Types: " + types.size());
         System.out.println("Neighborhood: " + neighborhoods.size());
     }
 	
-	/** Prints a summary of businesses that fall under the specified NAICS code.
-	 *This method loops through all businesses in the list and counts the ones with the given NAICS code.
- 	 *It also keeps track of unique zip codes and neighborhoods associated with those businesses.
-	 * @param NAICS code 
-	 * @return void
-	 */
+     /** Prints a summary of businesses that fall under the specified NAICS code.
+      *This method loops through all businesses in the list and counts the ones with the given NAICS code.
+      *It also keeps track of unique zip codes and neighborhoods associated with those businesses.
+      * @param NAICS code 
+      * @return void
+      */
       private static void printNaicsSummary(int code) {
         int total = 0;
         ArrayList<String> codes = new ArrayList<>();
@@ -263,12 +263,12 @@ public class BusinessDataAnalyzer {
         int total = 0, closed = 0, lastYear = 0;
         for (int i = 0; i < list.size(); ++i) {
             try {
-				// Get the current list of businesses
+		// Get the current list of businesses
                 List<Business> business_list = list.get(i);
                 for (int j = 0; j < business_list.size(); ++j) {
                     ++total;
                     // If the business is closed (has an end date), increment the closed business count
-					Business business = business_list.get(j);
+		    Business business = business_list.get(j);
                     if (!business.getEndDate().equals("")) {
                         ++closed;
                     } 
@@ -278,7 +278,7 @@ public class BusinessDataAnalyzer {
                     if (arr.length == 3) {
                         year = arr[2];
                     }
-					//For new business in last years checks for year 2022 or 2023
+		    //For new business in last years checks for year 2022 or 2023
                     if (year.equals(2022) || (year.equals(2023))) {
                         ++lastYear;
                     }
@@ -353,15 +353,15 @@ class ArrayList<T> implements List<T> {
     private int size;
 
     public ArrayList() {
-		// Will generate a warning
+	// Will generate a warning
         arr = (T[]) new Object[10]; 
         size = 0;
     }
-	//Returns size of the list 
+    //Returns size of the list 
     public int size() {
         return size;
     }
-	//Returns element at the specified postion in the list
+    //Returns element at the specified postion in the list
     public T get(int pos) throws Exception {
         if (pos < 0 || pos >= size) {
 			//Exception is thrown if position is invalid
@@ -369,7 +369,7 @@ class ArrayList<T> implements List<T> {
         }
         return arr[pos];
     }
-	// Method to double the size of the array when it is full
+    // Method to double the size of the array when it is full
     private void grow_array() {
         T[] new_arr = (T[]) new Object[arr.length * 2];
         for (int i = 0; i < arr.length; i++) {
@@ -377,7 +377,7 @@ class ArrayList<T> implements List<T> {
         }
         arr = new_arr;
     }
-	// Method to add an element to the end of the list
+    // Method to add an element to the end of the list
     public boolean add(T item) {
         if (size == arr.length) {
             grow_array();
@@ -385,7 +385,7 @@ class ArrayList<T> implements List<T> {
         arr[size++] = item;
         return true;
     }
-	//Adds a specified element to the specifed position in the list 
+    //Adds a specified element to the specifed position in the list 
     public void add(int pos, T item) {
         if (size == arr.length) {
             grow_array();
@@ -397,7 +397,7 @@ class ArrayList<T> implements List<T> {
         ++size;
     }
 
-	//Removes the specified element and shifts the list to left by 1
+    //Removes the specified element and shifts the list to left by 1
     public T remove(int pos) {
         T item = arr[pos];
         for (int i = pos; i < size - 1; i++) {
@@ -423,6 +423,7 @@ class ArrayList<T> implements List<T> {
         return new ListIterator();
     }
 }
+
 /* The LinkedList class implements the List interface and provides a basic 
  * implementation of a singly linked list data structure.
  * @param <T> the type of elements stored in the list
@@ -450,7 +451,7 @@ class LinkedList<T> implements List<T> {
         return size;
     }
 	
-	//Returns the element at the specified position in the list 
+    //Returns the element at the specified position in the list 
     public T get(int pos) {
         Node curr = head;
         for (int i = 0; i < pos; i++) {
@@ -459,7 +460,7 @@ class LinkedList<T> implements List<T> {
         return (T) curr.data;
     }
 	
-	//Adds the specified element to the end of the list
+    //Adds the specified element to the end of the list
     public boolean add(T item) {
         if (head == null) {
             head = new Node(item);
@@ -477,7 +478,7 @@ class LinkedList<T> implements List<T> {
         return true;
     }
 	
-	//Inserts the specified element at the specified position in the list
+    //Inserts the specified element at the specified position in the list
     public void add(int pos, T item) {
         if (pos == 0) {
             Node node = new Node(item);
@@ -497,7 +498,7 @@ class LinkedList<T> implements List<T> {
         }
     }
 	
-	//Removes element at the specific position
+    //Removes element at the specific position
     public T remove(int pos) {
         if (pos == 0) {
             Node node = head;
@@ -516,7 +517,7 @@ class LinkedList<T> implements List<T> {
         }
     }
 	
-	//Iterator for the linked list
+    //Iterator for the linked list
     private class ListIterator<T> implements Iterator<T> {
         private Node node = head;
 
