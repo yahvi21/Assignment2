@@ -21,4 +21,4 @@ TIME:
 The time it take for my code to produce output is 2-5 seconds. 
 
 OTHER COMMENTS: 
-In my code while printing summary, for New Business in last year: I am getting output of 0. I am unable to find any problem with my code, so I believe it could be the data set that I have. 
+In my code while printing summary, for New Business in last year: I am getting output of 0. I am unable to find any error with my code (It could be the data set I have). 
