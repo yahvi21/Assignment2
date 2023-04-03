@@ -12,6 +12,7 @@ My project runs and compiles without any error.
 Extensive comments are provided in the code to understand each methods and its functionality. 
 I have included all the classes in same file to make it easier to follow all codes in this project.
 I have also improved on the data so if anything is missing my code inserts "" as a default value so all businesses are being captured and nothing is skipped even if its missing data in csv file. 
+I have made my command input by user to be case insensitive. 
 
 
 TIME: 
